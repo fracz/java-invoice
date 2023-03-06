@@ -8,9 +8,10 @@ public abstract class Product {
     private final BigDecimal price;
 
     private final BigDecimal taxPercent;
+    private static final BigDecimal MINIMUM_PRICE = new BigDecimal(0);
 
     protected Product(String name, BigDecimal price, BigDecimal tax) {
-        if(name == null || name.isEmpty() || price == null) {
+        if(name == null || name.isEmpty() || price == null || price.compareTo(Product.MINIMUM_PRICE) < 0) {
             throw new IllegalArgumentException();
         }
         this.name = name;
