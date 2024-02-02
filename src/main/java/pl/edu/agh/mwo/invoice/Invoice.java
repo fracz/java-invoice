@@ -9,7 +9,7 @@ public class Invoice {
     private Collection<Product> products;
 
     public void addProduct(Product product) {
-        // TODO: implement
+        // TODO: implement constructor 
     }
 
     public void addProduct(Product product, Integer quantity) {
