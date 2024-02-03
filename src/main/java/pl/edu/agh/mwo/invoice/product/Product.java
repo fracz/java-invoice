@@ -20,7 +20,7 @@ public abstract class Product {
         if (price == null) {
             throw new IllegalArgumentException("The price cannot be null");
         }
-        if (price.intValue() < 0) {
+        if (price.doubleValue() < 0) {
             throw new IllegalArgumentException("The price cannot be negative");
         }
 
