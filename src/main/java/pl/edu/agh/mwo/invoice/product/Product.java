@@ -1,6 +1,7 @@
 package pl.edu.agh.mwo.invoice.product;
 
 import java.math.BigDecimal;
+import java.util.Calendar;
 
 public abstract class Product {
     private final String name;
@@ -16,18 +17,19 @@ public abstract class Product {
     }
 
     public String getName() {
-        return null;
+        return name;
     }
 
     public BigDecimal getPrice() {
-        return null;
+        return price;
     }
 
     public BigDecimal getTaxPercent() {
-        return null;
+        return taxPercent;
     }
 
     public BigDecimal getPriceWithTax() {
-        return null;
+        BigDecimal priceWithTax = price.multiply(taxPercent).add(price);
+        return priceWithTax;
     }
 }
