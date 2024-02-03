@@ -8,6 +8,9 @@ import org.junit.Test;
 
 import pl.edu.agh.mwo.invoice.product.Product;
 
+
+// TOKEN = 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
+
 public class ProductTest {
     @Test
     public void testProductNameIsCorrect() {
