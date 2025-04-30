@@ -19,7 +19,25 @@ public class Invoice {
         if (product == null || quantity <= 0) {
             throw new IllegalArgumentException();
         }
+
+
+        for (Map.Entry<Product, Integer> entry : products.entrySet()) {
+            if (entry.getKey().getName().equals(product.getName())) {
+                products.put(entry.getKey(), entry.getValue() + quantity);
+                return;
+            }
+        }
+
         products.put(product, quantity);
+    }
+
+    public int getProductQuantity(Product product) {
+        for (Map.Entry<Product, Integer> entry : products.entrySet()) {
+            if (entry.getKey().getName().equals(product.getName())) {
+                return entry.getValue();
+            }
+        }
+        return 0;
     }
 
     public BigDecimal getNetTotal() {

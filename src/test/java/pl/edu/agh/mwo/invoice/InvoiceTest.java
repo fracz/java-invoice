@@ -8,10 +8,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import pl.edu.agh.mwo.invoice.Invoice;
-import pl.edu.agh.mwo.invoice.product.DairyProduct;
-import pl.edu.agh.mwo.invoice.product.OtherProduct;
-import pl.edu.agh.mwo.invoice.product.Product;
-import pl.edu.agh.mwo.invoice.product.TaxFreeProduct;
+import pl.edu.agh.mwo.invoice.product.*;
 
 public class InvoiceTest {
     private Invoice invoice;
@@ -154,7 +151,7 @@ public class InvoiceTest {
     @Test
     public void testInvoiceToString(){
         int a = invoice.getNumber();
-        invoice.addProduct(new TaxFreeProduct("Chleb", new BigDecimal("5")), 2);
+        invoice.addProduct(new DairyProduct("Chleb", new BigDecimal("5")), 2);
         invoice.addProduct(new DairyProduct("Chedar", new BigDecimal("10")), 3);
         invoice.addProduct(new OtherProduct("Pinezka", new BigDecimal("0.01")), 1000);
 
@@ -165,6 +162,18 @@ public class InvoiceTest {
                 "Liczba pozycji: 3";
 
         Assert.assertEquals(expected, invoice.getInvoiceAsString());
+    }
+
+    @Test
+    public void testAddSameProduct() {
+        Invoice invoice = new Invoice();
+        Product chleb = new DairyProduct("Chleb", new BigDecimal("5"));
+        Product chleb2 = new DairyProduct("Chleb", new BigDecimal("5"));
+
+        invoice.addProduct(chleb, 2);
+        invoice.addProduct(chleb2, 3);
+
+        Assert.assertEquals(5, invoice.getProductQuantity(new TaxFreeProduct("Chleb", new BigDecimal("5"))));
     }
 }
 
