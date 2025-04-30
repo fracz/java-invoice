@@ -1,8 +1,5 @@
 name: CI for Java Invoice
-
-on:
-  push:
-
+on: [push]
 jobs:
   checkstyle:
     name: Lint with Checkstyle
