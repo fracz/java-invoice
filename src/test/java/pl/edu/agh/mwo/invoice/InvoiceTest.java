@@ -168,4 +168,76 @@ public class InvoiceTest {
                 """;
         Assert.assertThat(productsList, Matchers.equalTo(expectedList));
     }
+
+    @Test
+    public void testListOfProductsWhenEmptyInvoice() {
+        String expected = """
+        Invoice: %d
+        -----
+        Liczba pozycji: 0
+        """.formatted(invoice.getNumber());
+
+        Assert.assertEquals(expected, invoice.getProductsList());
+    }
+
+    @Test
+    public void testListOfProductsMergesSameProduct() {
+        Product chleb = new TaxFreeProduct("Chleb", new BigDecimal("4.00"));
+        invoice.addProduct(chleb);
+        invoice.addProduct(chleb, 2);
+        String expected = """
+        Invoice: %d
+        Chleb, 3, 4.00
+        -----
+        Liczba pozycji: 3
+        """.formatted(invoice.getNumber());
+
+        Assert.assertEquals(expected, invoice.getProductsList());
+    }
+
+    @Test
+    public void testListOfProductsWithDecimalPrice() {
+        invoice.addProduct(new OtherProduct("Kawa", new BigDecimal("10.55")));
+
+        String expected = """
+        Invoice: %d
+        Kawa, 1, 10.55
+        -----
+        Liczba pozycji: 1
+        """.formatted(invoice.getNumber());
+        Assert.assertEquals(expected, invoice.getProductsList());
+    }
+
+
+
+    @Test
+    public void testAddingSameProductMultipleTimesIsEquivalentToOneAddWithQuantity() {
+        Product długopis = new OtherProduct("Długopis", new BigDecimal("2.50"));
+
+        Invoice invoiceA = new Invoice();
+        invoiceA.addProduct(długopis);
+        invoiceA.addProduct(długopis, 2);
+
+        Invoice invoiceB = new Invoice();
+        invoiceB.addProduct(długopis, 3);
+
+        Assert.assertEquals(invoiceA.getNetTotal(), invoiceB.getNetTotal());
+        Assert.assertEquals(invoiceA.getGrossTotal(), invoiceB.getGrossTotal());
+    }
+
+    @Test
+    public void testProductIsNotDuplicatedInMap() {
+        Product długopis = new OtherProduct("Długopis", new BigDecimal("2.50"));
+        invoice.addProduct(długopis);
+        invoice.addProduct(długopis);
+
+        String expected = """
+        Invoice: %d
+        Długopis, 2, 2.50
+        -----
+        Liczba pozycji: 2
+        """.formatted(invoice.getNumber());
+
+        Assert.assertEquals(expected, invoice.getProductsList());
+    }
 }
