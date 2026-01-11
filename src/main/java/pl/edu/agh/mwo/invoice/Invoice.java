@@ -11,14 +11,14 @@ public class Invoice {
 
     public void addProduct(Product product) {
         if (product == null) {
-            throw new IllegalArgumentException("Product is null, incorect");
+            throw new IllegalArgumentException("Product is null, incorect.");
         }
         this.products.add(product);
     }
 
     public void addProduct(Product product, Integer quantity) {
         if (product == null || quantity == null || quantity <= 0) {
-            throw new IllegalArgumentException("Quantity equols 0, incorect");
+            throw new IllegalArgumentException("Quantity equols 0, incorect.");
         }
         for (int i = 0; i < quantity; i++) {
             this.addProduct(product);
