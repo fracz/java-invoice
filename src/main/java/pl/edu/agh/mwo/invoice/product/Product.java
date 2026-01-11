@@ -13,7 +13,7 @@ public abstract class Product {
         if (name == null || name.isEmpty() ) {
             throw new IllegalArgumentException("Name can't be null nor empty!");
         }
-        if (price == null || price.compareTo(BigDecimal.ZERO) < 0) {
+        if (price == null || price.signum() < 0) {
             throw new IllegalArgumentException("Price can't be null nor negative!");
         }
 
