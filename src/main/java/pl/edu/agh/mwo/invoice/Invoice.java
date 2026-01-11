@@ -34,7 +34,7 @@ public class Invoice {
     }
 
     public BigDecimal getTax() {
-        return add(products.stream().map(p -> p.getPrice().multiply(p.getTaxPercent())));
+        return getTotal().subtract(getSubtotal());
 
     }
 
