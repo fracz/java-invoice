@@ -12,18 +12,18 @@ public abstract class Product {
 
     protected Product(String name, BigDecimal price, BigDecimal tax) {
 
-        if(name == null) {
-            throw new IllegalArgumentException("name cannot be null");
+        if(name == null || name.isBlank()) {
+            throw new IllegalArgumentException("Product name cannot be null");
         }
         this.name = name;
 
         if(price == null) {
-            throw new IllegalArgumentException("price cannot be null");
+            throw new IllegalArgumentException("Price cannot be null");
         }
         this.price = price;
 
-       if(tax == null) {
-           throw new IllegalArgumentException("tax cannot be null");
+       if(tax == null|| price.compareTo(BigDecimal.ZERO) < 0) {
+           throw new IllegalArgumentException("Tax percent cannot be null");
        }
         this.taxPercent = tax;
     }
