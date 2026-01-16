@@ -22,6 +22,13 @@ public class Invoice {
 
 
     public void addProduct(Product product, Integer quantity) {
+        if(product == null) {
+            throw new IllegalArgumentException("Product cannot be null");
+
+        } if (quantity <= 0) {
+            throw new IllegalArgumentException("Quantity must be greater than 0");
+        }
+
         this.productsMap.put(product,quantity);
     }
 
@@ -29,6 +36,8 @@ public class Invoice {
     private Map<Product,Integer> productsMap = new HashMap<>();
 
     public BigDecimal getNetValue() {
+
+
         BigDecimal netValue = BigDecimal.ZERO;
 
         for (Product product : this.productsMap.keySet()) {
@@ -37,8 +46,9 @@ public class Invoice {
             price = price.multiply(BigDecimal.valueOf(quantity));
             netValue = netValue.add(price);
 
-        }
-        return netValue;
+        }return netValue;
+
+
     }
 
 
@@ -60,5 +70,7 @@ public class Invoice {
         return netValue;
 
     }
+
+
 }
 
